@@ -19,8 +19,9 @@ You can add the copyright notice directly to the image in the file manager.
 ## Install
 
 ### via Composer
-`composer require tastaturberuf/contao-image-copyright-bundle`
-
+```
+composer require tastaturberuf/contao-image-copyright-bundle
+```
 ### via Contao Manager
 search for `tastaturberuf/contao-image-copyright-bundle`
 
