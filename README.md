@@ -2,11 +2,19 @@
 
 With this Contao bundle you can easily add a copyright notice to all images and then display them in a module or content element.
 
-[sreenshot]
+## Frontend
+
+![Frontend Module Screenshot](Resources/docs/screenshots/frontend_module.jpg)
+ 
+ *This is how it can look on the website.*
+
+## Backend
 
 You can add the copyright notice directly to the image in the file manager.
 
-[sreenshot]
+![Backend Screenshot](Resources/docs/screenshots/backend_tl_files_dca.jpg)
+ 
+ *The backend view in files manager.*
 
 ## Install
 
