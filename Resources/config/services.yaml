@@ -1,0 +1,17 @@
+services:
+
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+
+    Tastaturberuf\ContaoImageCopyrightBundle\EventListener\DcaModuleListener: ~
+
+
+    Tastaturberuf\ContaoImageCopyrightBundle\EventListener\DcaFilesListener: ~
+
+
+    Tastaturberuf\ContaoImageCopyrightBundle\Controller\ImageCopyrightListController:
+        arguments:
+            $rootDir: '%kernel.project_dir%'
+            $validImageExtensions: '%contao.image.valid_extensions%'

@@ -1,0 +1,23 @@
+{
+    "name": "tastaturberuf/contao-image-copyright-bundle",
+    "type": "contao-bundle",
+    "license": "LGPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Daniel Jahnsmüller",
+            "homepage": "https://tastaturberuf.de",
+            "role": "developer"
+        }
+    ],
+    "require": {
+        "contao/core-bundle": "^4.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tastaturberuf\\ContaoImageCopyrightBundle\\": ""
+        }
+    },
+    "extra": {
+        "contao-manager-plugin": "Tastaturberuf\\ContaoImageCopyrightBundle\\ContaoManager\\Plugin"
+    }
+}

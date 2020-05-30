@@ -1,0 +1,24 @@
+<?php $this->extend('block_unsearchable') ?>
+
+<?php $this->block('content') ?>
+
+<?php if ( $this->files ): ?>
+    <div style="display: flex; align-items: baseline; align-content: space-between; justify-content: left; flex-wrap: wrap">
+    <?php foreach ($this->files as $file ): ?>
+        <div style="margin-right: 1em;">
+            <img class="copyright-image" src="<?=$file->src?>" alt="<?=$file->ic_copyright?>">
+            <p class="copyright-text">
+                <?php if ($file->ic_href === '' ): ?>
+                    <?=$file->ic_copyright?>
+                <?php else: ?>
+                    <a href="<?=$file->ic_href?>"><?=$file->ic_copyright?></a>
+                <?php endif ?>
+            </p>
+        </div>
+    <?php endforeach ?>
+    </div>
+<?php else: ?>
+    <p>{{label::image_copyright_list:ic_no_files_found}}</p>
+<?php endif ?>
+
+<?php $this->endblock() ?>
