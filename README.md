@@ -2,7 +2,7 @@
 ![Release](https://img.shields.io/github/release-date/tastaturberuf/contao-image-copyright-bundle)
 ![Last Commit](https://img.shields.io/github/last-commit/tastaturberuf/contao-image-copyright-bundle)
 
-# :framed_picture: Contao Image Copyright Bundle
+# Contao Image Copyright Bundle :framed_picture:
 
 With this Contao bundle you can easily add a copyright notice to all images and then display them in a module or content element.
 
