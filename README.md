@@ -5,6 +5,7 @@
 # Contao Image Copyright Bundle :framed_picture:
 
 With this Contao bundle you can easily add a copyright notice to all images and then display them in a module.
+Especially helpful when stock photos of various providers are used.
 
 ## Frontend
 
