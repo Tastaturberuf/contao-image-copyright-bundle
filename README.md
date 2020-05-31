@@ -1,4 +1,4 @@
-![Contao Bundle](https://img.shields.io/badge/type-contao--bundle-%23F47C00)
+![Contao Version](https://img.shields.io/badge/contao--version-^4.9-%23F47C00)
 ![License](https://img.shields.io/github/license/tastaturberuf/contao-image-copyright-bundle)
 ![Release](https://img.shields.io/github/release-date/tastaturberuf/contao-image-copyright-bundle)
 ![Last Commit](https://img.shields.io/github/last-commit/tastaturberuf/contao-image-copyright-bundle)
