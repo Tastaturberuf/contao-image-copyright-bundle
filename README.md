@@ -1,6 +1,8 @@
-![Contao Version](https://img.shields.io/badge/contao--version-^4.9-%23F47C00)
-![Release](https://img.shields.io/github/release-date/tastaturberuf/contao-image-copyright-bundle)
-![Last Commit](https://img.shields.io/github/last-commit/tastaturberuf/contao-image-copyright-bundle)
+[![Version](http://img.shields.io/packagist/v/tastaturberuf/contao-image-copyright-bundle)](https://packagist.org/packages/tastaturberuf/contao-image-copyright-bundle)
+[![Release](https://img.shields.io/github/release-date/tastaturberuf/contao-image-copyright-bundle)](https://github.com/Tastaturberuf/contao-image-copyright-bundle)
+[![Last Commit](https://img.shields.io/github/last-commit/tastaturberuf/contao-image-copyright-bundle)](https://github.com/Tastaturberuf/contao-image-copyright-bundle/commits/master)
+[![Contao Version](https://img.shields.io/badge/contao--version-^4.9-%23F47C00)](https://contao.org)
+
 
 # Contao Image Copyright Bundle :framed_picture:
 
