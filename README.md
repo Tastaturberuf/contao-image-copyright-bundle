@@ -31,6 +31,8 @@ composer require tastaturberuf/contao-image-copyright-bundle
 ### via Contao Manager
 search for `tastaturberuf/contao-image-copyright-bundle`
 
+➡ [Link to the Contao Extension Repository](https://extensions.contao.org/?p=tastaturberuf%2Fcontao-image-copyright-bundle)
+
 
 ## Translations
 
