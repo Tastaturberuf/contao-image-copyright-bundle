@@ -2,6 +2,18 @@
     "name": "tastaturberuf/contao-image-copyright-bundle",
     "type": "contao-bundle",
     "license": "LGPL-3.0-or-later",
+    "keywords": [
+        "copyright",
+        "stock",
+        "stockphotos",
+        "istock",
+        "fotolia",
+        "shutterstock",
+        "license",
+        "licence",
+        "picture"
+    ],
+    "homepage": "https://github.com/Tastaturberuf/contao-image-copyright-bundle",
     "authors": [
         {
             "name": "Daniel Jahnsmüller",
