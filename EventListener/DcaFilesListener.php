@@ -15,7 +15,9 @@ namespace Tastaturberuf\ContaoImageCopyrightBundle\EventListener;
 
 
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
+use Contao\CoreBundle\ServiceAnnotation\Callback;
 use Contao\CoreBundle\ServiceAnnotation\Hook;
+use Contao\DataContainer;
 use Terminal42\ServiceAnnotationBundle\ServiceAnnotationInterface;
 
 
@@ -23,32 +25,27 @@ class DcaFilesListener implements ServiceAnnotationInterface
 {
 
     /**
+     * @var array
+     */
+    private $validImageExtensions;
+
+
+    public function __construct(array $validImageExtensions)
+    {
+        $this->validImageExtensions = $validImageExtensions;
+    }
+
+
+    /**
      * @Hook("loadDataContainer", priority=1)
      */
-    public function onLoadCallback(string $table): void
+    public function addFields(string $table): void
     {
         if ( 'tl_files' !== $table )
         {
             return;
         }
 
-        $this->extendPalette($table);
-        $this->addFields($table);
-    }
-
-
-    private function extendPalette(string $table): void
-    {
-        PaletteManipulator::create()
-            ->addLegend('tastaturberuf_image_copyright_legend', 'meta')
-                ->addField(['ic_copyright', 'ic_href', 'ic_hide'], 'tastaturberuf_image_copyright_legend')
-                ->applyToPalette('default', $table)
-        ;
-    }
-
-
-    private function addFields(string $table): void
-    {
         $GLOBALS['TL_DCA'][$table]['fields'] = array_replace_recursive($GLOBALS['TL_DCA'][$table]['fields'],
         [
             'ic_copyright' =>
@@ -86,6 +83,30 @@ class DcaFilesListener implements ServiceAnnotationInterface
             ],
 
         ]);
+    }
+
+
+    /**
+     * @Callback(table="tl_files", target="config.onload", priority=1)
+     */
+    public function onLoadCallback(DataContainer $dc = null): void
+    {
+        // make sure to have data container and file id
+        if ( null === $dc || null === $dc->id )
+        {
+            return;
+        }
+
+        $fileExtension = pathinfo($dc->id)['extension'];
+
+        if ( in_array($fileExtension, $this->validImageExtensions) )
+        {
+            PaletteManipulator::create()
+                ->addLegend('tastaturberuf_image_copyright_legend', 'meta')
+                ->addField(['ic_copyright', 'ic_href', 'ic_hide'], 'tastaturberuf_image_copyright_legend')
+                ->applyToPalette('default', $dc->table)
+            ;
+        }
     }
 
 }

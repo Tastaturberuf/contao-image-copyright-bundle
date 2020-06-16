@@ -8,7 +8,9 @@ services:
     Tastaturberuf\ContaoImageCopyrightBundle\EventListener\DcaModuleListener: ~
 
 
-    Tastaturberuf\ContaoImageCopyrightBundle\EventListener\DcaFilesListener: ~
+    Tastaturberuf\ContaoImageCopyrightBundle\EventListener\DcaFilesListener:
+        arguments:
+            $validImageExtensions: '%contao.image.valid_extensions%'
 
 
     Tastaturberuf\ContaoImageCopyrightBundle\Controller\ImageCopyrightListController:
