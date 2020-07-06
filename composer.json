@@ -16,9 +16,14 @@
     "homepage": "https://github.com/Tastaturberuf/contao-image-copyright-bundle",
     "authors": [
         {
+            "name": "Tastaturberuf",
+            "homepage": "https://tastaturberuf.de",
+            "role": "Developer"
+        },
+        {
             "name": "Daniel Jahnsmüller",
             "homepage": "https://tastaturberuf.de",
-            "role": "developer"
+            "role": "Developer"
         }
     ],
     "require": {
