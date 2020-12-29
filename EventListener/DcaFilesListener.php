@@ -37,7 +37,7 @@ class DcaFilesListener implements ServiceAnnotationInterface
 
 
     /**
-     * @Hook("loadDataContainer", priority=1)
+     * @Hook("loadDataContainer")
      */
     public function addFields(string $table): void
     {
@@ -87,7 +87,7 @@ class DcaFilesListener implements ServiceAnnotationInterface
 
 
     /**
-     * @Callback(table="tl_files", target="config.onload", priority=1)
+     * @Callback(table="tl_files", target="config.onload")
      */
     public function onLoadCallback(DataContainer $dc = null): void
     {
