@@ -35,6 +35,12 @@ search for `tastaturberuf/contao-image-copyright-bundle`
 ➡ [Link to the Contao Extension Repository](https://extensions.contao.org/?p=tastaturberuf%2Fcontao-image-copyright-bundle)
 
 
+## Known issues
+
+- ### Edit multiple files
+  The backend show fields to all files and directories. This is a technical issue in the 
+  Contao core. **Copyright hints on invalid image types or directories have no impact to the frondend module.**
+
 ## Translations
 
 - [ ] Chinese - 中文(简体)

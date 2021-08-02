@@ -1,9 +1,9 @@
-<?php
+<?php // with ♥ and Contao
 
 /**
  * ImageCopyright for Contao Open Source CMS
  *
- * @copyright   2016 – 2020 Tastaturberuf <tastaturberuf.de>
+ * @copyright   2016 – 2021 Tastaturberuf <tastaturberuf.de>
  * @author      Daniel Jahnsmüller <tastaturberuf.de>
  * @license     LGPL-3.0-or-later
  */
@@ -18,10 +18,10 @@ use Contao\CoreBundle\DataContainer\PaletteManipulator;
 use Contao\CoreBundle\ServiceAnnotation\Callback;
 use Contao\CoreBundle\ServiceAnnotation\Hook;
 use Contao\DataContainer;
-use Terminal42\ServiceAnnotationBundle\ServiceAnnotationInterface;
+use Contao\Input;
 
 
-class DcaFilesListener implements ServiceAnnotationInterface
+class DcaFilesListener
 {
 
     /**
@@ -91,22 +91,38 @@ class DcaFilesListener implements ServiceAnnotationInterface
      */
     public function onLoadCallback(DataContainer $dc = null): void
     {
-        // make sure to have data container and file id
-        if ( null === $dc || null === $dc->id )
+        // make sure to have data container
+        if ( null === $dc )
         {
             return;
         }
 
-        $fileExtension = pathinfo($dc->id)['extension'];
-
-        if ( in_array($fileExtension, $this->validImageExtensions) )
+        // render fields on edit all
+        if ( 'editAll' === Input::get('act') )
         {
-            PaletteManipulator::create()
-                ->addLegend('tastaturberuf_image_copyright_legend', 'meta')
-                ->addField(['ic_copyright', 'ic_href', 'ic_hide'], 'tastaturberuf_image_copyright_legend')
-                ->applyToPalette('default', $dc->table)
-            ;
+            $this->addFieldsToPalette($dc->table);
         }
+
+        // render when valid image type
+        if ( null !== $dc->id )
+        {
+            $fileExtension = pathinfo((string) $dc->id)['extension'];
+
+            if ( in_array($fileExtension, $this->validImageExtensions) )
+            {
+                $this->addFieldsToPalette($dc->table);
+            }
+        }
+    }
+
+
+    private function addFieldsToPalette(string $table): void
+    {
+        PaletteManipulator::create()
+            ->addLegend('tastaturberuf_image_copyright_legend', 'meta')
+            ->addField(['ic_copyright', 'ic_href', 'ic_hide'], 'tastaturberuf_image_copyright_legend')
+            ->applyToPalette('default', $table)
+        ;
     }
 
 }
