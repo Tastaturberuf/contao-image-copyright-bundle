@@ -57,7 +57,7 @@ search for `tastaturberuf/contao-image-copyright-bundle`
 - [ ] Portuguese - Português
 - [ ] Russian - Русский
 - [ ] Serbian - Српски
-- [ ] Spanish - Español
+- [x] Spanish - Español
 
 ## Maintainer
 [Tastaturberuf](https://tastaturberuf.de) **with ♥ and Contao**
