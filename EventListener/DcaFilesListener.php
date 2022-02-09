@@ -106,7 +106,7 @@ class DcaFilesListener
         // render when valid image type
         if ( null !== $dc->id )
         {
-            $fileExtension = pathinfo((string) $dc->id)['extension'];
+            $fileExtension = \strtolower(pathinfo((string) $dc->id)['extension']);
 
             if ( in_array($fileExtension, $this->validImageExtensions) )
             {
