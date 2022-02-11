@@ -104,11 +104,18 @@ class DcaFilesListener
         }
 
         // render when valid image type
-        if ( null !== $dc->id )
+        if ( null !== $dc->id && '' !== $dc->id )
         {
-            $fileExtension = \strtolower(pathinfo((string) $dc->id)['extension']);
+            // extract the extension from the file path
+            $fileExtension = pathinfo((string) $dc->id)['extension'];
 
-            if ( in_array($fileExtension, $this->validImageExtensions) )
+            // check if path could get read
+            if ($fileExtension)
+            {
+                $fileExtension = \strtolower($fileExtension);
+            }
+
+            if ( $fileExtension && in_array($fileExtension, $this->validImageExtensions) )
             {
                 $this->addFieldsToPalette($dc->table);
             }
