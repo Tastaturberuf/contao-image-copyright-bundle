@@ -24,10 +24,7 @@ use Contao\Input;
 class DcaFilesListener
 {
 
-    /**
-     * @var array
-     */
-    private $validImageExtensions;
+    private array $validImageExtensions;
 
 
     public function __construct(array $validImageExtensions)
@@ -104,11 +101,11 @@ class DcaFilesListener
         }
 
         // render when valid image type
-        if ( null !== $dc->id )
+        if ( is_string($dc->id) )
         {
-            $fileExtension = \strtolower(pathinfo((string) $dc->id)['extension']);
+            $fileExtension = \strtolower(pathinfo($dc->id, PATHINFO_EXTENSION));
 
-            if ( in_array($fileExtension, $this->validImageExtensions) )
+            if (in_array($fileExtension, $this->validImageExtensions, true))
             {
                 $this->addFieldsToPalette($dc->table);
             }
