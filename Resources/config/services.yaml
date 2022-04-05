@@ -17,3 +17,10 @@ services:
         arguments:
             $rootDir: '%kernel.project_dir%'
             $validImageExtensions: '%contao.image.valid_extensions%'
+
+    Tastaturberuf\ContaoImageCopyrightBundle\EventListener\ParseTemplateListener:
+        arguments:
+            - '@contao.routing.scope_matcher'
+            - '@request_stack'
+        tags:
+            - { name: contao.hook, hook: parseTemplate, method: onParseTemplate, priority: 0 }
