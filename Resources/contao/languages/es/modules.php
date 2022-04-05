@@ -17,4 +17,4 @@ namespace Tastaturberuf\ContaoImageCopyrightBundle\Contao\Translation;
 use Tastaturberuf\ContaoImageCopyrightBundle\Controller\ImageCopyrightListController;
 
 
-$GLOBALS['TL_LANG']['FMD'][ImageCopyrightListController::TYPE] = ['Lista de derechos de autor', 'Genera una lista de imágenes con aviso de copyright.'];
+$GLOBALS['TL_LANG']['FMD'][ImageCopyrightListController::TYPE] = ['Lista de derechos de autor de la imagen', 'Genera una lista de imágenes con aviso de copyright.'];
