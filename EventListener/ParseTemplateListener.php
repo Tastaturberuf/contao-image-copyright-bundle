@@ -1,12 +1,25 @@
-<?php
+<?php // with ♥ and Contao
+
+/**
+ * ImageCopyright for Contao Open Source CMS
+ *
+ * @copyright   2016 – 2022 Tastaturberuf <tastaturberuf.de>
+ * @author      Daniel Jahnsmüller <tastaturberuf.de>
+ * @license     LGPL-3.0-or-later
+ */
+
+declare(strict_types=1);
+
 
 namespace Tastaturberuf\ContaoImageCopyrightBundle\EventListener;
+
 
 use Contao\CoreBundle\Routing\ScopeMatcher;
 use Contao\FilesModel;
 use Contao\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+
 
 class ParseTemplateListener
 {
