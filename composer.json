@@ -29,7 +29,7 @@
     ],
     "require": {
         "php": "^7.4 || ^8.0",
-        "contao/core-bundle": "^4.9"
+        "contao/core-bundle": "^4.9 || ^5.3"
     },
     "suggest": {
         "christianbarkowsky/contao-tiny-compress-images": "This plugin automatically optimizes images by integrating the TinyJPG / TinyPNG compressing service."

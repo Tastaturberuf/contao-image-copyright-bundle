@@ -50,7 +50,7 @@ class ImageCopyrightListController extends AbstractFrontendModuleController
     }
 
 
-    protected function getResponse(Template $template, ModuleModel $model, Request $request): ?Response
+    protected function getResponse(Template $template, ModuleModel $model, Request $request): Response
     {
         if ( null !== $files = $this->getImages($model) )
         {
