@@ -3,22 +3,24 @@
 /**
  * ImageCopyright for Contao Open Source CMS
  *
- * @copyright   2016 – 2021 Tastaturberuf <tastaturberuf.de>
+ * @copyright   2016 – 2024 Tastaturberuf <tastaturberuf.de>
  * @author      Daniel Jahnsmüller <tastaturberuf.de>
  * @license     LGPL-3.0-or-later
  */
 
 declare(strict_types=1);
 
-
 namespace Tastaturberuf\ContaoImageCopyrightBundle\EventListener;
 
-
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
-use Contao\CoreBundle\ServiceAnnotation\Callback;
-use Contao\CoreBundle\ServiceAnnotation\Hook;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
 use Contao\DataContainer;
 use Contao\Input;
+use function array_replace_recursive;
+use function in_array;
+use function is_string;
+use function strtolower;
 
 
 class DcaFilesListener
@@ -32,81 +34,65 @@ class DcaFilesListener
         $this->validImageExtensions = $validImageExtensions;
     }
 
-
-    /**
-     * @Hook("loadDataContainer")
-     */
+    #[AsHook('loadDataContainer')]
     public function addFields(string $table): void
     {
-        if ( 'tl_files' !== $table )
-        {
+        if ( 'tl_files' !== $table ) {
             return;
         }
 
         $GLOBALS['TL_DCA'][$table]['fields'] = array_replace_recursive($GLOBALS['TL_DCA'][$table]['fields'],
         [
-            'ic_copyright' =>
-            [
+            'ic_copyright' => [
                 'exclude'   => true,
                 'inputType' => 'text',
-                'eval'      =>
-                [
+                'eval'      => [
                     'maxlength' => 128,
                     'tl_class'  => 'w50'
                 ],
                 'sql' => "varchar(128) NOT NULL default ''"
             ],
-            'ic_href' =>
-            [
+            'ic_href' => [
                 'exclude'   => true,
                 'inputType' => 'text',
-                'eval'      =>
-                [
+                'eval'      => [
                     'rgxp'      => 'url',
                     'maxlength' => 255,
                     'tl_class'  => 'w50'
                 ],
                 'sql' => "varchar(255) NOT NULL default ''"
             ],
-            'ic_hide' =>
-            [
+            'ic_hide' => [
                 'exclude'   => true,
                 'inputType' => 'checkbox',
-                'eval'      =>
-                [
+                'eval'      => [
                     'tl_class' => 'clear m12 w50'
                 ],
-                'sql'       => "char(1) NOT NULL default ''"
+                'sql' => "char(1) NOT NULL default ''"
             ],
 
         ]);
     }
 
-
-    /**
-     * @Callback(table="tl_files", target="config.onload")
-     */
+    #[AsCallback('tl_files', 'config.onload')]
     public function onLoadCallback(DataContainer $dc = null): void
     {
         // make sure to have data container
-        if ( null === $dc )
-        {
+        if (null === $dc) {
             return;
         }
 
         // render fields on edit all
-        if ( 'editAll' === Input::get('act') )
-        {
+        if ('editAll' === Input::get('act') ) {
             $this->addFieldsToPalette($dc->table);
         }
 
         // render when valid image type
-        if ( is_string($dc->id) )
+        if (is_string($dc->id))
         {
-            $fileExtension = \strtolower(pathinfo($dc->id, PATHINFO_EXTENSION));
+            $fileExtension = strtolower(pathinfo($dc->id, PATHINFO_EXTENSION));
 
-            if (in_array($fileExtension, $this->validImageExtensions, true))
-            {
+            if (in_array($fileExtension, $this->validImageExtensions, true)) {
                 $this->addFieldsToPalette($dc->table);
             }
         }

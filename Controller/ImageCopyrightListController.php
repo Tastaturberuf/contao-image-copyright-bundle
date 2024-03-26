@@ -3,20 +3,18 @@
 /**
  * ImageCopyright for Contao Open Source CMS
  *
- * @copyright   2016 – 2022 Tastaturberuf <tastaturberuf.de>
+ * @copyright   2016 – 2024 Tastaturberuf <tastaturberuf.de>
  * @author      Daniel Jahnsmüller <tastaturberuf.de>
  * @license     LGPL-3.0-or-later
  */
 
 declare(strict_types=1);
 
-
 namespace Tastaturberuf\ContaoImageCopyrightBundle\Controller;
 
-
 use Contao\CoreBundle\Controller\FrontendModule\AbstractFrontendModuleController;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsFrontendModule;
 use Contao\CoreBundle\Image\ImageFactoryInterface;
-use Contao\CoreBundle\ServiceAnnotation\FrontendModule;
 use Contao\FilesModel;
 use Contao\Model\Collection;
 use Contao\ModuleModel;
@@ -24,11 +22,11 @@ use Contao\StringUtil;
 use Contao\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use function implode;
+use function sprintf;
 
 
-/**
- * @FrontendModule(category="miscellaneous")
- */
+#[AsFrontendModule(self::TYPE, 'miscellaneous', 'mod_image_copyright_list')]
 class ImageCopyrightListController extends AbstractFrontendModuleController
 {
 
@@ -49,15 +47,12 @@ class ImageCopyrightListController extends AbstractFrontendModuleController
         $this->validImageExtensions = $validImageExtensions;
     }
 
-
     protected function getResponse(Template $template, ModuleModel $model, Request $request): Response
     {
-        if ( null !== $files = $this->getImages($model) )
-        {
+        if ( null !== $files = $this->getImages($model) ) {
             $imgSize = StringUtil::deserialize($model->imgSize);
 
-            foreach ($files as $file)
-            {
+            foreach ($files as $file) {
                 $image = $this->imageFactory->create($this->rootDir.DIRECTORY_SEPARATOR.$file->path, $imgSize);
 
                 $file->src = $image->getUrl($this->rootDir);
@@ -70,7 +65,6 @@ class ImageCopyrightListController extends AbstractFrontendModuleController
         return $template->getResponse();
     }
 
-
     private function getImages(ModuleModel $model): ?Collection
     {
         // mask all strings with single quotes to e.g. 'jpeg', 'webp', ...
@@ -78,10 +72,8 @@ class ImageCopyrightListController extends AbstractFrontendModuleController
             return "'$extension'";
         }, $this->validImageExtensions);
 
-        $options =
-        [
-            'column' =>
-            [
+        $options = [
+            'column' => [
                 // text is set
                 "ic_copyright != ''",
                 // type is file
@@ -89,22 +81,20 @@ class ImageCopyrightListController extends AbstractFrontendModuleController
                 // is not hidden
                 "ic_hide = ''",
                 // is valid image type
-                sprintf("extension IN (%s)", \implode(',', $extensions))
+                sprintf("extension IN (%s)", implode(',', $extensions))
             ]
         ];
 
         // if a folder is set find only files in path und subfolders
-        if ( $model->ic_folder && $folderModel = FilesModel::findByPk($model->ic_folder) )
-        {
+        if ( $model->ic_folder && $folderModel = FilesModel::findByPk($model->ic_folder) ) {
             $options['column'][] = sprintf("path LIKE '%s/%%'", $folderModel->path);
         }
 
         // order by columns
-        if ( $model->ic_order )
-        {
+        if ( $model->ic_order ) {
             $order = StringUtil::deserialize($model->ic_order);
 
-            $options['order'] = \implode(',', $order);
+            $options['order'] = implode(',', $order);
         }
 
         return FilesModel::findAll($options);

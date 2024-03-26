@@ -3,21 +3,20 @@
 /**
  * ImageCopyright for Contao Open Source CMS
  *
- * @copyright   2016 – 2022 Tastaturberuf <tastaturberuf.de>
+ * @copyright   2016 – 2024 Tastaturberuf <tastaturberuf.de>
  * @author      Daniel Jahnsmüller <tastaturberuf.de>
  * @license     LGPL-3.0-or-later
  */
 
 declare(strict_types=1);
 
-
 namespace Tastaturberuf\ContaoImageCopyrightBundle\EventListener;
 
-
-use Contao\CoreBundle\ServiceAnnotation\Callback;
-use Contao\CoreBundle\ServiceAnnotation\Hook;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
 use Doctrine\DBAL\Connection;
 use Tastaturberuf\ContaoImageCopyrightBundle\Controller\ImageCopyrightListController;
+use function array_keys;
 
 
 class DcaModuleListener
@@ -31,15 +30,13 @@ class DcaModuleListener
         $this->connection = $connection;
     }
 
-
     /**
      * Priority must > 1 otherwise the callbacks are loaded too early
-     * @Hook("loadDataContainer", priority=1)
      */
+    #[AsHook('loadDataContainer', priority: 1)]
     public function loadDataContainer(string $table): void
     {
-        if ('tl_module' !== $table)
-        {
+        if ('tl_module' !== $table) {
             return;
         }
 
@@ -52,24 +49,20 @@ class DcaModuleListener
             {expert_legend:hide},guests,cssID
         ';
 
-        $GLOBALS['TL_DCA'][$table]['fields']['ic_folder'] =
-        [
+        $GLOBALS['TL_DCA'][$table]['fields']['ic_folder'] = [
             'exclude'   => true,
             'inputType' => 'fileTree',
-            'eval'      =>
-            [
+            'eval'      => [
                 'fieldType' => 'radio',
                 'tl_class'  => 'clr w50'
             ],
             'sql' => 'binary(16) NULL'
         ];
 
-        $GLOBALS['TL_DCA'][$table]['fields']['ic_order'] =
-        [
+        $GLOBALS['TL_DCA'][$table]['fields']['ic_order'] = [
             'exclude'   => true,
             'inputType' => 'checkboxWizard',
-            'eval'      =>
-            [
+            'eval'      => [
                 'multiple' => true,
                 'tl_class' => 'clr'
             ],
@@ -78,13 +71,10 @@ class DcaModuleListener
 
     }
 
-
-    /**
-     * @Callback(table="tl_module", target="fields.ic_order.options")
-     */
+    #[AsCallback('tl_module', 'fields.ic_order.options')]
     public function getOrderFields(): array
     {
-        return \array_keys($this->connection->getSchemaManager()->listTableColumns('tl_files'));
+        return array_keys($this->connection->createSchemaManager()->listTableColumns('tl_files'));
     }
 
 }
