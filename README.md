@@ -11,34 +11,36 @@ Especially helpful if you use stock photos from various vendors and need to disp
 
 ## Frontend
 
-![Frontend Module Screenshot](Resources/docs/screenshots/frontend_module.jpg)
- 
- *This is how it can look on the website.*
+![Frontend Module Screenshot](docs/screenshots/frontend_module.jpg)
+
+*This is how it can look on the website.*
 
 ## Backend
 
 You can add the copyright notice directly to the image in the file manager.
 
-![Backend Screenshot](Resources/docs/screenshots/backend_tl_files_dca.jpg)
- 
- *The backend view in files manager.*
+![Backend Screenshot](docs/screenshots/backend_tl_files_dca.jpg)
+
+*The backend view in files manager.*
 
 ## Install
 
 ### via Composer
+
 ```
 composer require tastaturberuf/contao-image-copyright-bundle
 ```
+
 ### via Contao Manager
+
 search for `tastaturberuf/contao-image-copyright-bundle`
 
 ➡ [Link to the Contao Extension Repository](https://extensions.contao.org/?p=tastaturberuf%2Fcontao-image-copyright-bundle)
 
-
 ## Known issues
 
 - ### Edit multiple files
-  The backend show fields to all files and directories. This is a technical issue in the 
+  The backend show fields to all files and directories. This is a technical issue in the
   Contao core. **Copyright hints on invalid image types or directories have no impact to the frondend module.**
 
 ## Translations
@@ -60,4 +62,5 @@ search for `tastaturberuf/contao-image-copyright-bundle`
 - [x] Spanish - Español
 
 ## Maintainer
+
 [Tastaturberuf](https://tastaturberuf.de) **with ♥ and Contao**

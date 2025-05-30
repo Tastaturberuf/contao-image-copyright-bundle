@@ -6,11 +6,7 @@ use Rector\Config\RectorConfig;
 
 return RectorConfig::configure()
     ->withPaths([
-        __DIR__ . '/ContaoManager',
-        __DIR__ . '/Controller',
-        __DIR__ . '/DependencyInjection',
-        __DIR__ . '/EventListener',
-        __DIR__ . '/Resources',
+        __DIR__ . '/src',
     ])
     // uncomment to reach your current PHP version
     ->withPhpSets()
