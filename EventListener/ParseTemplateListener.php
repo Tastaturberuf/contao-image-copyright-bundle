@@ -17,35 +17,26 @@ namespace Tastaturberuf\ContaoImageCopyrightBundle\EventListener;
 use Contao\CoreBundle\Routing\ScopeMatcher;
 use Contao\FilesModel;
 use Contao\Template;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 
 class ParseTemplateListener
 {
-    private ScopeMatcher $scopeMatcher;
-    private ?Request $request;
 
-    public function __construct(ScopeMatcher $scopeMatcher, RequestStack $requestStack)
+    public function __construct(private readonly ScopeMatcher $scopeMatcher, private readonly RequestStack $requestStack)
     {
-        $this->scopeMatcher = $scopeMatcher;
-        $this->request = $requestStack->getCurrentRequest();
     }
 
     /**
      * Add the copyright fields to the image template
-     *
-     * @param Template $template
-     *
-     * @return void
      */
     public function onParseTemplate(Template $template): void
     {
-        if (null === $this->request) {
+        if (null === $request = $this->requestStack->getCurrentRequest()) {
             return;
         }
 
-        if (false === $this->scopeMatcher->isFrontendRequest($this->request)) {
+        if (false === $this->scopeMatcher->isFrontendRequest($request)) {
             return;
         }
 

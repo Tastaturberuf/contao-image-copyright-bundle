@@ -33,27 +33,17 @@ class ImageCopyrightListController extends AbstractFrontendModuleController
     public const TYPE = 'image_copyright_list';
 
 
-    private ImageFactoryInterface $imageFactory;
-
-    private string $rootDir;
-
-    private array $validImageExtensions;
-
-
-    public function __construct(ImageFactoryInterface $imageFactory, string $rootDir, array $validImageExtensions)
+    public function __construct(private readonly ImageFactoryInterface $imageFactory, private readonly string $rootDir, private readonly array $validImageExtensions)
     {
-        $this->imageFactory         = $imageFactory;
-        $this->rootDir              = $rootDir;
-        $this->validImageExtensions = $validImageExtensions;
     }
 
     protected function getResponse(Template $template, ModuleModel $model, Request $request): Response
     {
-        if ( null !== $files = $this->getImages($model) ) {
+        if (null !== $files = $this->getImages($model)) {
             $imgSize = StringUtil::deserialize($model->imgSize);
 
             foreach ($files as $file) {
-                $image = $this->imageFactory->create($this->rootDir.DIRECTORY_SEPARATOR.$file->path, $imgSize);
+                $image = $this->imageFactory->create($this->rootDir . DIRECTORY_SEPARATOR . $file->path, $imgSize);
 
                 $file->src = $image->getUrl($this->rootDir);
                 $file->dimensions = $image->getDimensions();
@@ -68,9 +58,7 @@ class ImageCopyrightListController extends AbstractFrontendModuleController
     private function getImages(ModuleModel $model): ?Collection
     {
         // mask all strings with single quotes to e.g. 'jpeg', 'webp', ...
-        $extensions = array_map(function (string $extension): string {
-            return "'$extension'";
-        }, $this->validImageExtensions);
+        $extensions = array_map(static fn(string $extension): string => "'$extension'", $this->validImageExtensions);
 
         $options = [
             'column' => [
@@ -86,12 +74,12 @@ class ImageCopyrightListController extends AbstractFrontendModuleController
         ];
 
         // if a folder is set find only files in path und subfolders
-        if ( $model->ic_folder && $folderModel = FilesModel::findByPk($model->ic_folder) ) {
+        if ($model->ic_folder && $folderModel = FilesModel::findByPk($model->ic_folder)) {
             $options['column'][] = sprintf("path LIKE '%s/%%'", $folderModel->path);
         }
 
         // order by columns
-        if ( $model->ic_order ) {
+        if ($model->ic_order) {
             $order = StringUtil::deserialize($model->ic_order);
 
             $options['order'] = implode(',', $order);

@@ -26,12 +26,8 @@ use function strtolower;
 class DcaFilesListener
 {
 
-    private array $validImageExtensions;
-
-
-    public function __construct(array $validImageExtensions)
+    public function __construct(private readonly array $validImageExtensions)
     {
-        $this->validImageExtensions = $validImageExtensions;
     }
 
     #[AsHook('loadDataContainer')]

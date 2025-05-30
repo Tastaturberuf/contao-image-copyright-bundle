@@ -22,12 +22,8 @@ use function array_keys;
 class DcaModuleListener
 {
 
-    private Connection $connection;
-
-
-    public function __construct(Connection $connection)
+    public function __construct(private readonly Connection $connection)
     {
-        $this->connection = $connection;
     }
 
     /**
