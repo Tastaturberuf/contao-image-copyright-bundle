@@ -14,9 +14,9 @@ namespace Tastaturberuf\ContaoImageCopyrightBundle\EventListener;
 
 use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
 use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
+use Contao\System;
 use Doctrine\DBAL\Connection;
 use Tastaturberuf\ContaoImageCopyrightBundle\Controller\ImageCopyrightListController;
-use function array_keys;
 
 
 class DcaModuleListener
@@ -37,7 +37,7 @@ class DcaModuleListener
         }
 
         $GLOBALS['TL_DCA'][$table]['palettes'][ImageCopyrightListController::TYPE] =
-        '
+            '
             {title_legend},name,headline,type;
             {config_legend},imgSize,ic_folder,ic_order;
             {template_legend:hide},customTpl;
@@ -46,19 +46,19 @@ class DcaModuleListener
         ';
 
         $GLOBALS['TL_DCA'][$table]['fields']['ic_folder'] = [
-            'exclude'   => true,
+            'exclude' => true,
             'inputType' => 'fileTree',
-            'eval'      => [
+            'eval' => [
                 'fieldType' => 'radio',
-                'tl_class'  => 'clr w50'
+                'tl_class' => 'clr w50'
             ],
             'sql' => 'binary(16) NULL'
         ];
 
         $GLOBALS['TL_DCA'][$table]['fields']['ic_order'] = [
-            'exclude'   => true,
+            'exclude' => true,
             'inputType' => 'checkboxWizard',
-            'eval'      => [
+            'eval' => [
                 'multiple' => true,
                 'tl_class' => 'clr'
             ],
@@ -70,7 +70,15 @@ class DcaModuleListener
     #[AsCallback('tl_module', 'fields.ic_order.options')]
     public function getOrderFields(): array
     {
-        return array_keys($this->connection->createSchemaManager()->listTableColumns('tl_files'));
+        System::loadLanguageFile('tl_files');
+
+        $options = $this->connection->createSchemaManager()->listTableColumns('tl_files');
+
+        foreach ($options as $key => $value) {
+            $options[$key] = \sprintf('%s <i style="color:#999">[%s]</i>', $GLOBALS['TL_LANG']['tl_files'][$key][0] ?? $key, $key);
+        }
+
+        return $options;
     }
 
 }
