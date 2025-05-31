@@ -15,10 +15,12 @@ namespace Tastaturberuf\ContaoImageCopyrightBundle\Contao\Translation;
 
 
 $GLOBALS['TL_LANG']['tl_files'] = array_replace_recursive($GLOBALS['TL_LANG']['tl_files'],
-[
-    'tastaturberuf_image_copyright_legend' => "Paramètres des droits d'auteur",
+    [
+        'tastaturberuf_image_copyright_legend' => "Paramètres des droits d'auteur",
 
-    'ic_copyright' => ["Avis de droit d'auteur", "Fournir un avis de droit d'auteur."],
-    'ic_href'      => ['Lien', "Lien cible pour l'avis de droit d'auteur"],
-    'ic_hide'      => ["Cacher dans la liste", "N'affichez pas ce fichier dans le module Droits d'auteur."]
-]);
+        'ic_copyright' => ["Avis de droit d'auteur", "Fournir un avis de droit d'auteur."],
+        'ic_href' => ['Lien', "Lien cible pour l'avis de droit d'auteur"],
+        'ic_hide' => ["Cacher dans la liste", "N'affichez pas ce fichier dans le module Droits d'auteur."],
+
+        'ic_copyright_button' => ['Copyright Note disponible.', "La note du droit d'auteur est manquante."]
+    ]);
