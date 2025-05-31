@@ -19,9 +19,11 @@ Especially helpful if you use stock photos from various vendors and need to disp
 
 You can add the copyright notice directly to the image in the file manager.
 
-![Backend Screenshot](docs/screenshots/backend_tl_files_dca.jpg)
-
+![Backend Screenshot Fields](docs/screenshots/backend_tl_files_dca.jpg)
 *The backend view in files manager.*
+
+![Backend Screenshot Missing Copyright Button](docs/screenshots/copyright_note_is_missing.png)
+*Icon for the copyright status*
 
 ## Install
 
