@@ -23,6 +23,7 @@ You can add the copyright notice directly to the image in the file manager.
 *The backend view in files manager.*
 
 ![Backend Screenshot Missing Copyright Button](docs/screenshots/copyright_note_is_missing.png)
+
 *Icon for the copyright status*
 
 ## Install
