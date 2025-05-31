@@ -3,14 +3,14 @@
 /**
  * ImageCopyright for Contao Open Source CMS
  *
- * @copyright   2016 – 2024 Tastaturberuf <tastaturberuf.de>
+ * @copyright   2016 – 2025 Tastaturberuf <tastaturberuf.de>
  * @author      Daniel Jahnsmüller <tastaturberuf.de>
  * @license     LGPL-3.0-or-later
  */
 
 declare(strict_types=1);
 
-namespace Tastaturberuf\ContaoImageCopyrightBundle\EventListener;
+namespace Tastaturberuf\ContaoImageCopyrightBundle\DataContainer;
 
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
 use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
@@ -23,7 +23,7 @@ use function is_string;
 use function strtolower;
 
 
-class DcaFilesListener
+final class FilesDataContainer
 {
 
     public function __construct(private readonly array $validImageExtensions)
@@ -36,6 +36,8 @@ class DcaFilesListener
         if ( 'tl_files' !== $table ) {
             return;
         }
+
+        $GLOBALS['TL_DCA'][$table]['config']['onload_callback'][] = $this->onLoadCallback(...);
 
         $GLOBALS['TL_DCA'][$table]['fields'] = array_replace_recursive($GLOBALS['TL_DCA'][$table]['fields'],
         [
@@ -71,7 +73,7 @@ class DcaFilesListener
     }
 
     #[AsCallback('tl_files', 'config.onload')]
-    public function onLoadCallback(DataContainer $dc = null): void
+    private function onLoadCallback(?DataContainer $dc = null): void
     {
         // make sure to have data container
         if (null === $dc) {

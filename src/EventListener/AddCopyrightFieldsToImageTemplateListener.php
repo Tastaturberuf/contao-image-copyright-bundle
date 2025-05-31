@@ -3,7 +3,7 @@
 /**
  * ImageCopyright for Contao Open Source CMS
  *
- * @copyright   2016 – 2022 Tastaturberuf <tastaturberuf.de>
+ * @copyright   2016 – 2025 Tastaturberuf <tastaturberuf.de>
  * @author      Daniel Jahnsmüller <tastaturberuf.de>
  * @license     LGPL-3.0-or-later
  */
@@ -14,13 +14,15 @@ declare(strict_types=1);
 namespace Tastaturberuf\ContaoImageCopyrightBundle\EventListener;
 
 
+use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
 use Contao\CoreBundle\Routing\ScopeMatcher;
 use Contao\FilesModel;
 use Contao\Template;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 
-class ParseTemplateListener
+#[AsHook('parseTemplate')]
+final class AddCopyrightFieldsToImageTemplateListener
 {
 
     public function __construct(private readonly ScopeMatcher $scopeMatcher, private readonly RequestStack $requestStack)
@@ -30,25 +32,30 @@ class ParseTemplateListener
     /**
      * Add the copyright fields to the image template
      */
-    public function onParseTemplate(Template $template): void
+    public function __invoke(Template $template): void
     {
+        // Skip without request
         if (null === $request = $this->requestStack->getCurrentRequest()) {
             return;
         }
 
+        // Skip backend
         if (false === $this->scopeMatcher->isFrontendRequest($request)) {
             return;
         }
 
         // Only the image template should be used
-        if (false === str_starts_with($template->getName(), 'image')) {
+        if ('image' === $template->getName()) {
+            return;
+        }
+
+        // Skip without uuid
+        if (null === $uuid = $template->__get('uuid')) {
             return;
         }
 
         // Load the image with the given uuid
-        $uuid = $template->__get('uuid');
-        $file = FilesModel::findByUuid($uuid);
-        if (null === $file) {
+        if (null === $file = FilesModel::findByUuid($uuid)) {
             return;
         }
 

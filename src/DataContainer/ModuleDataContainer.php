@@ -3,23 +3,22 @@
 /**
  * ImageCopyright for Contao Open Source CMS
  *
- * @copyright   2016 – 2024 Tastaturberuf <tastaturberuf.de>
+ * @copyright   2016 – 2025 Tastaturberuf <tastaturberuf.de>
  * @author      Daniel Jahnsmüller <tastaturberuf.de>
  * @license     LGPL-3.0-or-later
  */
 
 declare(strict_types=1);
 
-namespace Tastaturberuf\ContaoImageCopyrightBundle\EventListener;
+namespace Tastaturberuf\ContaoImageCopyrightBundle\DataContainer;
 
-use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
 use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
 use Contao\System;
 use Doctrine\DBAL\Connection;
 use Tastaturberuf\ContaoImageCopyrightBundle\Controller\ImageCopyrightListController;
 
 
-class DcaModuleListener
+final class ModuleDataContainer
 {
 
     public function __construct(private readonly Connection $connection)
@@ -36,8 +35,7 @@ class DcaModuleListener
             return;
         }
 
-        $GLOBALS['TL_DCA'][$table]['palettes'][ImageCopyrightListController::TYPE] =
-            '
+        $GLOBALS['TL_DCA'][$table]['palettes'][ImageCopyrightListController::TYPE] = '
             {title_legend},name,headline,type;
             {config_legend},imgSize,ic_folder,ic_order;
             {template_legend:hide},customTpl;
@@ -58,6 +56,7 @@ class DcaModuleListener
         $GLOBALS['TL_DCA'][$table]['fields']['ic_order'] = [
             'exclude' => true,
             'inputType' => 'checkboxWizard',
+            'options_callback' => $this->getOrderFields(...),
             'eval' => [
                 'multiple' => true,
                 'tl_class' => 'clr'
@@ -67,8 +66,7 @@ class DcaModuleListener
 
     }
 
-    #[AsCallback('tl_module', 'fields.ic_order.options')]
-    public function getOrderFields(): array
+    private function getOrderFields(): array
     {
         System::loadLanguageFile('tl_files');
 

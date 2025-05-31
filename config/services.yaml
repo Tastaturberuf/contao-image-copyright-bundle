@@ -5,10 +5,9 @@ services:
         autoconfigure: true
 
 
-    Tastaturberuf\ContaoImageCopyrightBundle\EventListener\DcaModuleListener: ~
+    Tastaturberuf\ContaoImageCopyrightBundle\DataContainer\ModuleDataContainer: ~
 
-
-    Tastaturberuf\ContaoImageCopyrightBundle\EventListener\DcaFilesListener:
+    Tastaturberuf\ContaoImageCopyrightBundle\DataContainer\FilesDataContainer:
         arguments:
             $validImageExtensions: '%contao.image.valid_extensions%'
 
@@ -18,9 +17,7 @@ services:
             $rootDir: '%kernel.project_dir%'
             $validImageExtensions: '%contao.image.valid_extensions%'
 
-    Tastaturberuf\ContaoImageCopyrightBundle\EventListener\ParseTemplateListener:
+    Tastaturberuf\ContaoImageCopyrightBundle\EventListener\AddCopyrightFieldsToImageTemplateListener:
         arguments:
             - '@contao.routing.scope_matcher'
             - '@request_stack'
-        tags:
-            - { name: contao.hook, hook: parseTemplate, method: onParseTemplate, priority: 0 }
