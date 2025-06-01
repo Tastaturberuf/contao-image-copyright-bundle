@@ -117,8 +117,9 @@ final class FilesDataContainer
         array $row,
         ?string $href,
         string $label,
-        string $missingLabel,
+        string $title,
         ?string $icon,
+        string $attributes
     ): string
     {
         // Skip folders and non image files
@@ -127,11 +128,15 @@ final class FilesDataContainer
         }
 
         if ((null === $model = FilesModel::findByPath($row['id'])) || $model->ic_copyright === '') {
+            $attributes .= sprintf(' title="%s"', $title);
             $icon = str_replace('.svg', '--disabled.svg', $icon);
-            return Image::getHtml($icon, $missingLabel, 'title="' . $missingLabel . '"') . ' ';
+
+            return Image::getHtml($icon, $label, $attributes) . ' ';
         }
 
-        return Image::getHtml($icon, $label, 'title="' . $label . '"') . ' ';
+        $attributes .= sprintf(' title="%s"', $model->ic_copyright);
+
+        return Image::getHtml($icon, $label, $attributes) . ' ';
     }
 
 }

@@ -21,5 +21,5 @@ $GLOBALS['TL_LANG']['tl_files'] = array_replace_recursive($GLOBALS['TL_LANG']['t
     'ic_href' => ['Link', 'Linkziel für den Copyright Hinweis.'],
     'ic_hide' => ['In Liste verstecken', 'Zeigen Sie diese Datei im Copyright-Modul nicht an.'],
 
-    'ic_copyright_button' => ['Copyright-Hinweis vorhanden.', 'Copyright-Hinweis fehlt.']
+    'ic_copyright_button' => 'Kein Copyright-Hinweis vorhanden.'
 ]);
