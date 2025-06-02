@@ -33,7 +33,11 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.75",
-        "rector/rector": "^2.0"
+        "rector/rector": "^2.0",
+        "contao/manager-plugin": "^2.13"
+    },
+    "conflict": {
+        "contao/manager-plugin": "<2.0 || >=3.0"
     },
     "suggest": {
         "christianbarkowsky/contao-tiny-compress-images": "This plugin automatically optimizes images by integrating the TinyJPG / TinyPNG compressing service."
@@ -47,6 +51,7 @@
         "contao-manager-plugin": "Tastaturberuf\\ContaoImageCopyrightBundle\\ContaoManager\\Plugin"
     },
     "config": {
-        "allow-plugins": false
+        "allow-plugins": false,
+        "sort-packages": true
     }
 }

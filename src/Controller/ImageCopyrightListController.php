@@ -58,7 +58,7 @@ class ImageCopyrightListController extends AbstractFrontendModuleController
     private function getImages(ModuleModel $model): ?Collection
     {
         // mask all strings with single quotes to e.g. 'jpeg', 'webp', ...
-        $extensions = array_map(static fn(string $extension): string => "'$extension'", $this->validImageExtensions);
+        $extensions = array_map(static fn(string $extension): string => sprintf("'%s'", $extension), $this->validImageExtensions);
 
         $options = [
             'column' => [
