@@ -51,6 +51,7 @@
         "contao-manager-plugin": "Tastaturberuf\\ContaoImageCopyrightBundle\\ContaoManager\\Plugin"
     },
     "config": {
-        "allow-plugins": false
+        "allow-plugins": false,
+        "sort-packages": true
     }
 }
