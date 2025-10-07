@@ -1,6 +1,10 @@
-[![Contao Version](https://img.shields.io/badge/contao--version-^4.13_||_^5.3-%23F47C00)](https://contao.org)
+[![Contao Version](https://img.shields.io/badge/contao--version-^5.3-%23F47C00)](https://contao.org)
 
 # Contao Image Copyright Bundle :framed_picture:
+
+> [!NOTE]
+> **Contao** is an Open Source PHP Content Management System for people who want a professional website that is easy to
+> maintain. Visit the [project website](https://contao.org) for more information.
 
 With this Contao bundle you can easily add a copyright notice to all images and then display them in a module.
 
@@ -23,6 +27,13 @@ You can add the copyright notice directly to the image in the file manager.
 
 *Icon for the copyright status*
 
+## Compatibility
+
+- [ ] Contao 4.13 (install version `1.4.*`))
+- [x] Contao 5.3
+- [x] Contao 5.6
+- [ ] Contao 5.7 (Should be compatible)
+
 ## Install
 
 ### via Composer
@@ -37,30 +48,17 @@ search for `tastaturberuf/contao-image-copyright-bundle`
 
 ➡ [Link to the Contao Extension Repository](https://extensions.contao.org/?p=tastaturberuf%2Fcontao-image-copyright-bundle)
 
-## Known issues
-
-- ### Edit multiple files
-  The backend show fields to all files and directories. This is a technical issue in the
-  Contao core. **Copyright hints on invalid image types or directories have no impact to the frondend module.**
-
 ## Translations
 
-- [ ] Chinese - 中文(简体)
-- [ ] Czech - Čeština
-- [ ] Dutch - Nederlands
 - [x] English - English
 - [x] French - Français
 - [x] German - Deutsch
-- [ ] Italian - Italiano
-- [ ] Japanese - 日本語
-- [ ] Latvian - Latviešu
-- [ ] Persian - فارسی
-- [ ] Polish - Polski
-- [ ] Portuguese - Português
-- [ ] Russian - Русский
-- [ ] Serbian - Српски
 - [x] Spanish - Español
 
 ## Maintainer
 
-[Tastaturberuf](https://tastaturberuf.de) **with ♥ and Contao**
+[![Daniel Rick](https://avatars.githubusercontent.com/u/1027521?s=128)](https://github.com/tastaturberuf)
+
+[![Tastaturberuf](https://tastaturberuf.de/files/img/logo/2017.png)](https://tastaturberuf.de)
+
+**PHP with ♥ and Contao**
