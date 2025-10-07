@@ -14,13 +14,12 @@ namespace Tastaturberuf\ContaoImageCopyrightBundle\DataContainer;
 
 use Contao\ArrayUtil;
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
 use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
 use Contao\DataContainer;
 use Contao\FilesModel;
 use Contao\Image;
-use Contao\Input;
 use function array_replace_recursive;
-use function is_string;
 
 
 final class FilesDataContainer
@@ -37,10 +36,9 @@ final class FilesDataContainer
             return;
         }
 
-        $GLOBALS['TL_DCA'][$table]['config']['onload_callback'][] = $this->showFieldsOnValidFilesCallback(...);
-
         ArrayUtil::arrayInsert($GLOBALS['TL_DCA'][$table]['list']['operations'], count($GLOBALS['TL_DCA'][$table]['list']['operations']) - 1, [
             'ic_copyright_button' => [
+                'primary' => true,
                 'icon' => 'bundles/tastaturberufcontaoimagecopyright/icon/copyright.svg',
                 'button_callback' => $this->generateCopyrightButton(...)
             ]
@@ -79,22 +77,21 @@ final class FilesDataContainer
             ]);
     }
 
-    private function showFieldsOnValidFilesCallback(?DataContainer $dc = null): void
+    #[AsCallback('tl_files', 'config.onpalette')]
+    public function onPalette(string $palette, DataContainer $dc): string
     {
-        // make sure to have data container
-        if (null === $dc) {
-            return;
+        if (null === $file = FilesModel::findByPath($dc->id)) {
+            return $palette;
         }
 
-        // render fields on edit all
-        if ('editAll' === Input::get('act')) {
-            $this->addFieldsToPalette($dc->table);
+        if (!in_array($file->extension, $this->validImageExtensions, true)) {
+            return $palette;
         }
 
-        // render when valid image type
-        if (is_string($dc->id) && $this->isValidImage($dc->id)) {
-            $this->addFieldsToPalette($dc->table);
-        }
+        return PaletteManipulator::create()
+            ->addLegend('tastaturberuf_image_copyright_legend', 'meta')
+            ->addField(['ic_copyright', 'ic_href', 'ic_hide'], 'tastaturberuf_image_copyright_legend')
+            ->applyToString($palette);
     }
 
     private function isValidImage(string $id): bool
@@ -102,15 +99,6 @@ final class FilesDataContainer
         $imageExtension = \strtolower(\pathinfo($id, PATHINFO_EXTENSION));
 
         return \in_array($imageExtension, $this->validImageExtensions, true);
-    }
-
-
-    private function addFieldsToPalette(string $table): void
-    {
-        PaletteManipulator::create()
-            ->addLegend('tastaturberuf_image_copyright_legend', 'meta')
-            ->addField(['ic_copyright', 'ic_href', 'ic_hide'], 'tastaturberuf_image_copyright_legend')
-            ->applyToPalette('default', $table);
     }
 
     private function generateCopyrightButton(
