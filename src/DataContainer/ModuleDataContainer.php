@@ -73,7 +73,7 @@ final class ModuleDataContainer
         $options = $this->connection->createSchemaManager()->listTableColumns('tl_files');
 
         foreach ($options as $key => $value) {
-            $options[$key] = \sprintf('%s <i style="color:#999">[%s]</i>', $GLOBALS['TL_LANG']['tl_files'][$key][0] ?? $key, $key);
+            $options[$key] = \sprintf('%s [%s]', $GLOBALS['TL_LANG']['tl_files'][$key][0] ?? $key, $key);
         }
 
         return $options;
