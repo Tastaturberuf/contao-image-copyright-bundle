@@ -45,7 +45,7 @@ class ImageCopyrightListController extends AbstractFrontendModuleController
             foreach ($files as $file) {
                 $image = $this->imageFactory->create($this->rootDir . DIRECTORY_SEPARATOR . $file->path, $imgSize);
 
-                $file->src = $image->getUrl($this->rootDir);
+                $file->src = DIRECTORY_SEPARATOR. $image->getUrl($this->rootDir);
                 $file->dimensions = $image->getDimensions();
             }
 

@@ -1,5 +1,3 @@
-[![Contao Version](https://img.shields.io/badge/contao--version-^5.3-%23F47C00)](https://contao.org)
-
 # Contao Image Copyright Bundle :framed_picture:
 
 > [!NOTE]
@@ -31,8 +29,7 @@ You can add the copyright notice directly to the image in the file manager.
 
 - [ ] Contao 4.13 (install version `1.4.*`))
 - [x] Contao 5.3
-- [x] Contao 5.6
-- [ ] Contao 5.7 (Should be compatible)
+- [x] Contao 5.7
 
 ## Install
 
